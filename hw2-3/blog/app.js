@@ -1,5 +1,7 @@
 var express = require('express')
   , app = express() // Web framework to handle routing requests
+  , cookieParser = require('cookie-parser')
+  , bodyParser = require('body-parser')
   , cons = require('consolidate') // Templating library adapter for Express
   , MongoClient = require('mongodb').MongoClient // Driver for connecting to MongoDB
   , routes = require('./routes'); // Routes for our application
@@ -14,10 +16,10 @@ MongoClient.connect('mongodb://localhost:27017/blog', function(err, db) {
     app.set('views', __dirname + '/views');
 
     // Express middleware to populate 'req.cookies' so we can access cookies
-    app.use(express.cookieParser());
+    app.use(cookieParser());
 
     // Express middleware to populate 'req.body' so we can access POST variables
-    app.use(express.bodyParser());
+    app.use(bodyParser());
 
     // Application routes
     routes(app, db);
