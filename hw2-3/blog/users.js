@@ -22,6 +22,7 @@ function UsersDAO(db) {
 
         // Create user document
         var user = {'_id': username, 'password': password_hash};
+        // console.log(user); - здесь пока работает как надо
 
         // Add email if set
         if (email != "") {
@@ -29,7 +30,10 @@ function UsersDAO(db) {
         }
 
         // TODO: hw2.3
-        callback(Error("addUser Not Yet Implemented!"), null);
+        // callback(Error("addUser Not Yet Implemented!"), null);
+        users.insert(user, function(err, insertedUser) {
+            callback(err, insertedUser);
+        });
     }
 
     this.validateLogin = function(username, password, callback) {

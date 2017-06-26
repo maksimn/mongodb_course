@@ -137,7 +137,10 @@ function SessionHandler (db) {
                     }
                 }
 	console.log("this.handleSignup");
-                sessions.startSession(user[0]['_id'], function(err, session_id) {
+                 
+                // console.log('user: ', user.ops[0]['_id']);
+                
+                sessions.startSession(user.ops[0]['_id'], function(err, session_id) {
                     "use strict";
 
                     if (err) return next(err);
