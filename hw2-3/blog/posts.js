@@ -30,7 +30,14 @@ function PostsDAO(db) {
 
         // now insert the post
         // hw3.2 TODO
-        callback(Error("insertEntry Not Yet Implemented!"), null);
+        // callback(Error("insertEntry Not Yet Implemented!"), null);
+        posts.insert(post, function(err, inserted) {
+            if (err) {
+                return callback(err, null);
+            }
+
+            callback(null, permalink);
+        });
     }
 
     this.getPosts = function(num, callback) {
@@ -82,7 +89,17 @@ function PostsDAO(db) {
         }
 
         // hw3.3 TODO
-        callback(Error("addComment Not Yet Implemented!"), null);
+        // callback(Error("addComment Not Yet Implemented!"), null);
+
+        // В callback передаётся параметр updated, 
+        // Если он равен нулю, то значит, что такого поста не существует
+        var query = {'permalink': permalink};
+        posts.update(query, {'$push': {'comments': comment}}, function (err, result) {
+            if (err) {
+                return callback(err, null);
+            }
+            callback(err, result.result.nModified);
+        });
     }
 }
 
